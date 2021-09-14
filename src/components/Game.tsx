@@ -25,6 +25,16 @@ export default function Game() {
             <Header />
             <div className="p-2">Click to toggle wall.</div>
             <div className="p-2">Press R to reset.</div>
+            <div className="p-2">
+              <a
+                href="https://github.com/mscottmoore/rects-in-hex-demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue underline"
+              >
+                Source Code
+              </a>
+            </div>
           </div>
           <div className="flex-1 h-full w-full">
             <GameMap />
