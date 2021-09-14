@@ -1,11 +1,11 @@
-# Wyrm's Wrath
+# Rects in Hex
 
-Wyrm's Wrath is a roguelike deckbuilder created for 7DRL 2021.
+A simple demo of rectangular rooms in a hexagonal grid, for use in a roguelike or other game.
 
-## Running the Game
+## Running the Demo
 
 Assuming you have npm installed on your system, go to the root directory of this project then run `npm i` and `npm start`. Then the game will be available at `localhost:1234`.
 
 ## License
 
-The code is licensed under a GPL license. Art assets copyrighted by Lemunde, music and sound effects are copyrighted by brightbone, used with their permission. Interface sound effects with names starting with "kenney" are public domain from kenney.nl.
+The code is licensed under a GPL license. The sprites are public domain.
