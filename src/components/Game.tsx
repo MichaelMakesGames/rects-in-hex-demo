@@ -17,10 +17,7 @@ export default function Game() {
     <HotkeysProvider>
       <main className="h-full flex flex-col">
         <LoadGame />
-        <div
-          className="flex flex-row flex-1 w-full"
-          style={{ height: "calc(100% - 275px)" }}
-        >
+        <div className="flex flex-row flex-1 w-full h-full">
           <div className="flex-none w-64 h-full flex flex-col border-r border-gray z-10">
             <Header />
             <div className="p-2">Click to toggle wall.</div>
