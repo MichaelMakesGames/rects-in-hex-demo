@@ -26,6 +26,12 @@ function loadGameHandler(
   state.select
     .entitiesWithComps("pos", "display")
     .forEach((entity) => renderer.addEntity(entity));
+
+  // this will reset walls on load
+  state.select.entitiesWithComps("pos", "wall").forEach(({ pos }) => {
+    state.act.toggleWall(pos);
+    state.act.toggleWall(pos);
+  });
 }
 
 registerHandler(loadGameHandler, loadGame);

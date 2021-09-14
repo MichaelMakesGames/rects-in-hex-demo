@@ -1,10 +1,19 @@
 import { createStandardAction } from "typesafe-actions";
-import { registerHandler } from "../handleAction";
-import WrappedState from "../../types/WrappedState";
-import { Direction, Pos } from "~types";
-import { createEntityFromTemplate } from "~lib/entities";
-import { getAdjacentPositions, getPositionToDirection } from "~lib/geometry";
 import { PRIORITY_BUILDING_HIGH } from "~constants";
+import { createEntityFromTemplate } from "~lib/entities";
+import {
+  getAdjacentPositions,
+  getHorizontallyReflectedDirection,
+  getOppositeDirection,
+  getRelativePosition,
+  getRing,
+  getVerticalDirection,
+  getVerticallyReflectedDirection,
+  isDiagonalDirection,
+} from "~lib/geometry";
+import { Direction, Pos } from "~types";
+import WrappedState from "../../types/WrappedState";
+import { registerHandler } from "../handleAction";
 
 const toggleWall = createStandardAction("toggleWall")<Pos>();
 export default toggleWall;
@@ -24,15 +33,38 @@ function toggleWallHandler(
     );
   }
 
-  for (const pos of [action.payload, ...getAdjacentPositions(action.payload)]) {
+  for (const pos of [
+    action.payload,
+    ...getAdjacentPositions(action.payload),
+    ...getRing(action.payload, 2),
+  ]) {
     const wall = state.select.entitiesAtPosition(pos).find((e) => e.wall);
+    const hasWall = (...directions: Direction[]) =>
+      state.select
+        .entitiesAtPosition(getRelativePosition(pos, directions))
+        .some((e) => e.wall);
+    const isCorner = (d: Direction) =>
+      (isDiagonalDirection(d) &&
+        hasWall("N") &&
+        hasWall("S") &&
+        hasWall(d, d) &&
+        !hasWall(d, getVerticallyReflectedDirection(d)) &&
+        hasWall(d, d, getVerticallyReflectedDirection(d)) &&
+        !hasWall(getVerticallyReflectedDirection(d))) ||
+      (isDiagonalDirection(d) &&
+        hasWall(getOppositeDirection(d)) &&
+        hasWall(getVerticallyReflectedDirection(d)) &&
+        hasWall(
+          getOppositeDirection(d),
+          getHorizontallyReflectedDirection(d),
+        ) &&
+        hasWall(getVerticalDirection(d), d) &&
+        !hasWall(getVerticalDirection(d)) &&
+        !hasWall(getHorizontallyReflectedDirection(d)));
     if (wall) {
       let n = 0;
       (["N", "NE", "SE", "S", "SW", "NW"] as Direction[]).forEach((d, i) => {
-        const hasWall = state.select
-          .entitiesAtPosition(getPositionToDirection(pos, d))
-          .some((e) => e.wall);
-        n += hasWall ? 2 ** i : 0;
+        n += hasWall(d) && !isCorner(d) ? 2 ** i : 0;
       });
       state.act.updateEntity({
         id: wall.id,

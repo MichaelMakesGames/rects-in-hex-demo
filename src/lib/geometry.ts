@@ -113,6 +113,54 @@ export function getTightDirections(direction: Direction | null) {
   return [];
 }
 
+export function getOppositeDirection(direction: Direction): Direction {
+  if (direction === "N") return "S";
+  if (direction === "NE") return "SW";
+  if (direction === "SE") return "NW";
+  if (direction === "S") return "N";
+  if (direction === "SW") return "NE";
+  if (direction === "NW") return "SE";
+  return direction;
+}
+
+export function getVerticalDirection(direction: Direction): Direction {
+  if (direction === "N") return "N";
+  if (direction === "NE") return "N";
+  if (direction === "SE") return "S";
+  if (direction === "S") return "S";
+  if (direction === "SW") return "S";
+  if (direction === "NW") return "N";
+  return direction;
+}
+
+export function getVerticallyReflectedDirection(
+  direction: Direction,
+): Direction {
+  if (direction === "N") return "S";
+  if (direction === "NE") return "SE";
+  if (direction === "SE") return "NE";
+  if (direction === "S") return "N";
+  if (direction === "SW") return "NW";
+  if (direction === "NW") return "SW";
+  return direction;
+}
+
+export function getHorizontallyReflectedDirection(
+  direction: Direction,
+): Direction {
+  if (direction === "N") return "S";
+  if (direction === "NE") return "NW";
+  if (direction === "SE") return "SW";
+  if (direction === "S") return "N";
+  if (direction === "SW") return "SE";
+  if (direction === "NW") return "NE";
+  return direction;
+}
+
+export function isDiagonalDirection(direction: Direction): boolean {
+  return getVerticalDirection(direction) !== direction;
+}
+
 export function getConstDir(direction: Direction) {
   for (const constDir of DIRECTIONS) {
     if (areDirectionsEqual(direction, constDir)) return constDir;
