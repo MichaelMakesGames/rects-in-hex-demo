@@ -37,6 +37,7 @@ function toggleWallHandler(
     action.payload,
     ...getAdjacentPositions(action.payload),
     ...getRing(action.payload, 2),
+    ...getRing(action.payload, 3),
   ]) {
     const wall = state.select.entitiesAtPosition(pos).find((e) => e.wall);
     const hasWall = (...directions: Direction[]) =>
