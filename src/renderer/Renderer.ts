@@ -74,7 +74,7 @@ export default class Renderer {
     this.hex = Boolean(hex);
     this.hexBaseWidth = hexBaseWidth || tileWidth / 2;
     this.appWidth = document.body.clientWidth - 256;
-    this.appHeight = document.body.clientHeight - 250 - 25;
+    this.appHeight = document.body.clientHeight;
     this.app = new PIXI.Application({
       width: this.appWidth,
       height: this.appHeight,
@@ -608,7 +608,16 @@ export default class Renderer {
     }
   }
 
-  public getClientRectFromPos(gamePos: Pos): ClientRect {
+  public getClientRectFromPos(
+    gamePos: Pos,
+  ): {
+    width: number;
+    height: number;
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+  } {
     const canvas = this.app.view;
     const canvasParent = canvas.parentElement;
     if (!canvasParent) throw new Error("App canvas is not in document");

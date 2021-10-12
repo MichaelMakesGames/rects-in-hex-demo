@@ -1,5 +1,5 @@
 /* global document */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import renderer from "~/renderer";
 import { HotkeyGroup, useControl } from "~components/HotkeysProvider";
@@ -82,6 +82,28 @@ export default function GameMap() {
     );
   }, 500);
 
+  const [mode, setMode] = useState<"ADD_WALL" | "REMOVE_WALL" | "IDLE">("IDLE");
+
+  useEffect(() => {
+    if (cursorPos) {
+      if (mode === "ADD_WALL") {
+        dispatch(
+          actions.setWall({
+            pos: cursorPos,
+            wall: true,
+          }),
+        );
+      } else if (mode === "REMOVE_WALL") {
+        dispatch(
+          actions.setWall({
+            pos: cursorPos,
+            wall: false,
+          }),
+        );
+      }
+    }
+  }, [cursorPos, mode]);
+
   return (
     <section className="relative w-full h-full">
       {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -95,7 +117,9 @@ export default function GameMap() {
           if (cursorPos) {
             dispatch(actions.setCursorPos(null));
           }
+          setMode("IDLE");
         }}
+        onContextMenu={(e) => e.preventDefault()}
         onWheel={(e) => {
           if (e.nativeEvent.deltaY > 0) {
             renderer.zoomOut();
@@ -112,7 +136,7 @@ export default function GameMap() {
             }
           }
         }}
-        onClick={(e) => {
+        onMouseDown={(e) => {
           const mousePos = {
             x: e.nativeEvent.offsetX,
             y: e.nativeEvent.offsetY,
@@ -122,7 +146,20 @@ export default function GameMap() {
           if (!cursorPos || !arePositionsEqual(cursorPos, gamePos)) {
             dispatch(actions.setCursorPos(gamePos));
           }
-          dispatch(actions.toggleWall(gamePos));
+          if (e.button === 0) setMode("ADD_WALL");
+          if (e.button === 2) setMode("REMOVE_WALL");
+        }}
+        onMouseUp={(e) => {
+          const mousePos = {
+            x: e.nativeEvent.offsetX,
+            y: e.nativeEvent.offsetY,
+          };
+          mousePosRef.current = mousePos;
+          const gamePos = renderer.getPosFromMouse(mousePos.x, mousePos.y);
+          if (!cursorPos || !arePositionsEqual(cursorPos, gamePos)) {
+            dispatch(actions.setCursorPos(gamePos));
+          }
+          setMode("IDLE");
         }}
       />
     </section>

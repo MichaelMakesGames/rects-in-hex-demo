@@ -20,7 +20,8 @@ export default function Game() {
         <div className="flex flex-row flex-1 w-full h-full">
           <div className="flex-none w-64 h-full flex flex-col border-r border-gray z-10">
             <Header />
-            <div className="p-2">Click to toggle wall.</div>
+            <div className="p-2">Click (and drag) to add wall.</div>
+            <div className="p-2">Right-click (and drag) to remove.</div>
             <div className="p-2">Press R to reset.</div>
             <div className="p-2">
               <a
