@@ -8,6 +8,7 @@ import { registerHandler } from "../handleAction";
 const setWall = createStandardAction("setWall")<{
   pos: Pos;
   wall: boolean;
+  skipRefresh?: boolean;
 }>();
 export default setWall;
 
@@ -31,13 +32,15 @@ function setWallHandler(
     );
   }
 
-  for (const pos of [
-    action.payload.pos,
-    ...getAdjacentPositions(action.payload.pos),
-    ...getRing(action.payload.pos, 2),
-    ...getRing(action.payload.pos, 3),
-  ]) {
-    state.act.refreshTile(pos);
+  if (!action.payload.skipRefresh) {
+    for (const pos of [
+      action.payload.pos,
+      ...getAdjacentPositions(action.payload.pos),
+      ...getRing(action.payload.pos, 2),
+      ...getRing(action.payload.pos, 3),
+    ]) {
+      state.act.refreshTile(pos);
+    }
   }
 
   state.act.playerTookTurn();

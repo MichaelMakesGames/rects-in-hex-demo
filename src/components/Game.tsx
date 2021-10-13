@@ -1,12 +1,16 @@
 /* global document */
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import colors from "~colors";
+import actions from "~state/actions";
 import GameMap from "./GameMap";
 import Header from "./Header";
 import HotkeysProvider from "./HotkeysProvider";
 import LoadGame from "./LoadGame";
 
 export default function Game() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     Object.entries(colors).forEach(([color, value]) =>
       document.body.style.setProperty(`--${color}`, value),
@@ -23,6 +27,13 @@ export default function Game() {
             <div className="p-2">Click (and drag) to add wall.</div>
             <div className="p-2">Right-click (and drag) to remove.</div>
             <div className="p-2">Press R to reset.</div>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => dispatch(actions.generateMap())}
+            >
+              Generate Random Map
+            </button>
             <div className="p-2">
               <a
                 href="https://github.com/mscottmoore/rects-in-hex-demo"

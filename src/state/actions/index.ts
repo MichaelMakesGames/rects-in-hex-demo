@@ -1,8 +1,10 @@
 import addEntity from "./addEntity";
+import generateMap from "./generateMap";
 import loadGame from "./loadGame";
 import moveCursor from "./moveCursor";
 import newGame from "./newGame";
 import playerTookTurn from "./playerTookTurn";
+import refreshAllTiles from "./refreshAllTiles";
 import refreshTile from "./refreshTile";
 import removeEntities from "./removeEntities";
 import removeEntity from "./removeEntity";
@@ -13,10 +15,12 @@ import toggleWall from "./toggleWall";
 
 export default {
   addEntity,
+  generateMap,
   loadGame,
   moveCursor,
   newGame,
   playerTookTurn,
+  refreshAllTiles,
   refreshTile,
   removeEntities,
   removeEntity,
