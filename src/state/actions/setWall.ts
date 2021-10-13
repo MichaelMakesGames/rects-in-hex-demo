@@ -25,6 +25,11 @@ function setWallHandler(
   }
 
   if (existingWall) {
+    state.act.setDoor({
+      pos: action.payload.pos,
+      door: false,
+      skipRefresh: action.payload.skipRefresh,
+    });
     state.act.removeEntity(existingWall.id);
   } else {
     state.act.addEntity(

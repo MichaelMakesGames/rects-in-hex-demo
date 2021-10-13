@@ -1,5 +1,6 @@
 import colors from "~colors";
 import {
+  PRIORITY_BUILDING_DECORATION,
   PRIORITY_BUILDING_HIGH,
   PRIORITY_BUILDING_LOW,
   PRIORITY_MARKER,
@@ -13,6 +14,14 @@ const templates = {
     display: {
       tile: "wall_0",
       priority: PRIORITY_BUILDING_HIGH,
+    },
+  },
+  DOOR: {
+    name: "Door",
+    door: {},
+    display: {
+      tile: "door_center",
+      priority: PRIORITY_BUILDING_DECORATION,
     },
   },
   CURSOR: {

@@ -19,6 +19,8 @@ export interface Display {
 
 export interface Cursor {}
 
+export interface Door {}
+
 export interface Wall {}
 
 export interface Entity {
@@ -29,6 +31,7 @@ export interface Entity {
   cursor?: Cursor;
   description?: string;
   display?: Display;
+  door?: Door;
   name?: string;
   pos?: Pos;
   wall?: Wall;

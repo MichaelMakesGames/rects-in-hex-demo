@@ -9,6 +9,7 @@ import refreshTile from "./refreshTile";
 import removeEntities from "./removeEntities";
 import removeEntity from "./removeEntity";
 import setCursorPos from "./setCursorPos";
+import setDoor from "./setDoor";
 import setWall from "./setWall";
 import updateEntity from "./updateEntity";
 import toggleWall from "./toggleWall";
@@ -25,6 +26,7 @@ export default {
   removeEntities,
   removeEntity,
   setCursorPos,
+  setDoor,
   setWall,
   updateEntity,
   toggleWall,

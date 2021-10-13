@@ -10,6 +10,7 @@ export const HEX_BASE_WIDTH = 12;
 export const HEX_HEIGHT = 24;
 
 export const PRIORITY_MARKER = 30;
+export const PRIORITY_BUILDING_DECORATION = 20;
 export const PRIORITY_BUILDING_HIGH = 15;
 export const PRIORITY_BUILDING_LOW = 5;
 
